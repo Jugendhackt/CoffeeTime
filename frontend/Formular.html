@@ -5,36 +5,82 @@
             <!--  Jedes  Eingabefeld  muss  in  einem  <div  class="form-group">  liegen  -->
             <div  class="form-group">
                 <!--  Die  Angabe  class="control-label col-sm-2"  ist  notwendig,  damit  das  Feld  richtig  ausgerichtet  wird  -->
-                <label  for="inputEmail"  class="control-label col-sm-2">Eingabe  (einzezllig)</label>
+                <label  for="inputEmail"  class="control-label col-sm-2">Name</label>
                 <div  class="col-sm-10">
                     <!--  Durch  das  Attribut  placeholder="Platzhalter"  wird  ein  Platzhalter  eingefügt  -->
-                    <input  type="text"  class="form-control"  placeholder="Platzhalter"  id="inputEmail">
+                    <input  type="text"  class="form-control"  placeholder="Name"  id="inputName">
                     <!--  Mittels  class="help-block"  kann  ein  Hinweis  eingefügt  werden  -->
-                    <span  class="help-block">Hinweis:  Hilfstext</span>
+                    <span  class="help-block">Hinweis:  Automat/Café</span>
                 </div>
             </div>
-
+			
+			<div  class="form-group">
+                <!--  Die  Angabe  class="control-label col-sm-2"  ist  notwendig,  damit  das  Feld  richtig  ausgerichtet  wird  -->
+                <label  for="inputGetränk"  class="control-label col-sm-2">Art des Getränks</label>
+                <div  class="checkbox">
+                    <label> 
+					<input  type="checkbox"> Kaffee
+					<input  type="checkbox"> Tee
+					<input  type="checkbox"> Kakao
+					<label>
+                </div>
+            </div>
+			
+			<!--  Auswahlfeld  -->
+            <div class="form-group">
+                <label for="inputGetränk">Art des Getränks</label>
+				
+                <select id="inputGetränk" class="form-control">
+                    <option>Kaffee</option>
+                    <option>Tee</option>
+                    <option>Kakao</option>
+                </select>
+				
+            </div>
+			
+			<div  class="form-group">
+                <!--  Die  Angabe  class="control-label col-sm-2"  ist  notwendig,  damit  das  Feld  richtig  ausgerichtet  wird  -->
+                <label  for="inputQualität"  class="control-label col-sm-2">Qualität</label>
+                <div  class="checkbox">
+					<input  type="checkbox"> *
+					<input  type="checkbox"> *
+					<input  type="checkbox"> *
+					<input  type="checkbox"> *
+					<input  type="checkbox"> *
+                </div>
+            </div>
+			
             <div  class="form-group">
-                <label  for="inputPassword"  class="control-label col-sm-2">Password</label>
+                <label  for="inputPreis"  class="control-label col-sm-2">Preis</label>
                 <div  class="col-sm-10">
-                    <input  type="password"  placeholder="Password" class="form-control"  id="inputPassword">
+                    <input  type="text"  placeholder="Kosten" class="form-control"  id="inputPreis">
+					<!--  Mittels  class="help-block"  kann  ein  Hinweis  eingefügt  werden  -->
+                    <span  class="help-block"> in €</span>
                 </div>
             </div>
-
-            <div  class="form-group">
-                <div  class="col-sm-offset-2 col-sm-10">
-                    <!--  Bei  der  Checkbox  umgibt  das  label-Element  das  input-Element  der  Checkbox  -->
-                    <div class="checkbox">
-                        <label>
-                            <input  type="checkbox">  Eine  Checkbox
-                        </label>
-                    </div>
+			
+			<div  class="form-group">
+                <label  for="inputMenge"  class="control-label col-sm-2">Menge</label>
+                <div  class="col-sm-10">
+                    <input  type="text"  placeholder="Wie viel?" class="form-control"  id="inputMenge">
+					<!--  Mittels  class="help-block"  kann  ein  Hinweis  eingefügt  werden  -->
+                    <span  class="help-block"> in ml</span>
                 </div>
-            </div>    
+            </div>
+			
+			<div  class="form-group">
+                <label  for="inputOffen"  class="control-label col-sm-2">Öffnungszeiten</label>
+                <div  class="col-sm-10">
+                    <input  type="text"  placeholder="Wie lange?" class="form-control"  id="inputOffen">
+					<!--  Mittels  class="help-block"  kann  ein  Hinweis  eingefügt  werden  -->
+                    <span  class="help-block">Hinweis: Uhrzeiten/Wochentage</span>
+                </div>
+            </div>
+			
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <!--  Du  Zuweisung  class="btn  btn-primary  macht  aus  der  Schaltflaeche  einen  schoenen  blauen  Button  -->  
-                    <button  class="btn  btn-primary"  type="submit">Blauer  Button</button>
+                    <button  class="btn  btn-primary"  type="submit">anlegen</button>
                 </div>
             </div>
         </form>	
