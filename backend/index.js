@@ -60,7 +60,7 @@ app.post('/addAutomat', function(req, res) {
 });
 
 app.get('/:id/getAllBewertungen', function(req, res) {
-	mysqlPool.query('SELECT id, kommentar, qualitaet FROM Automat WHERE heissgetraenkid='+ mysqlPool.escape(req.params.id) +';',
+	mysqlPool.query('SELECT id, kommentar, qualitaet FROM Bewertung WHERE heissgetraenkid='+ mysqlPool.escape(req.params.id) +';',
 		function (error, results, fields) {
 			if (error) {
 				console.log(error);
