@@ -1,7 +1,11 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const mysqlPool = require('./mysql.js');
 
+// Use body-parser to handle post requests
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.get("/", function(req, res) {
 	res.send("Hello, World!");
@@ -30,6 +34,26 @@ app.get('/getAll', function(req, res) {
 			res.send(JSON.stringify(arr));
 		});
 })
+
+app.post('/addAutomat', function(req, res) {
+	console.log(req);
+	var name = mysqlPool.escape(req.body.name);
+	var long = mysqlPool.escape(req.body.long);
+	var lat = mysqlPool.escape(req.body.lat);
+	var oeffnungszeit = mysqlPool.escape(req.body.opens);
+
+	var query = "INSERT INTO Automat(name, art, oeffnungszeit, standortlg, standortbg) VALUES ("
+		+ name + ", 0," + oeffnungszeit + "," + long + "," + lat + ");"
+		mysqlPool.query(query, function(err, results, fields) {
+			if (err) {
+				res.send(500);
+			} else {
+				res.send(200);
+			}
+		})
+});
+
+
 
 app.listen(8081, function() {
 	console.log("Example server listening...");
