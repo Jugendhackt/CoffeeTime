@@ -1,0 +1,22 @@
+{
+  "name": "coffe_time_backend",
+  "version": "1.0.0",
+  "description": "The backend for the CoffeeTime service",
+  "main": "index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jugendhackt/CoffeeTime.git"
+  },
+  "author": "CoffeeTime Team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jugendhackt/CoffeeTime/issues"
+  },
+  "homepage": "https://github.com/Jugendhackt/CoffeeTime#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
