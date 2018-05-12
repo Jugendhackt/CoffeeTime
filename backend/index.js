@@ -35,12 +35,30 @@ app.get('/getAll', function(req, res) {
 					long: results[entry].standortlg,
 					lat: results[entry].standortbg,
 					quality: results[entry].quality,
-					
+
 				});
 			}
 			res.send(JSON.stringify(arr));
 		});
 })
+
+app.get('/automat/:id', function(req, res) {
+  mysqlPool.query('SELECT name, preis, art FROM Heissgetraenke WHERE automatid = ' +  req.params.id,
+  function (error, results, fields) {
+    if (error) {
+      console.log(error);
+    }
+    var arr = [];
+    for (entry in results) {
+      arr.push({
+        name: results[entry].name,
+        preis: results[entry].preis,
+        art: results[entry].art,
+      });
+    }
+    res.send(JSON.stringify(arr));
+  })
+});
 
 app.post('/addAutomat', function(req, res) {
 	console.log(req);
