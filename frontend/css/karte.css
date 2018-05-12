@@ -1,1 +1,8 @@
 #mapid { height: 570px; }
+
+.checked {
+    color: orange;
+}
+.unchecked{
+    color: lightgray;
+}
