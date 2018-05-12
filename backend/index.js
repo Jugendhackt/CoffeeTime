@@ -74,7 +74,7 @@ app.post('/addAutomat', function(req, res) {
     if (err) {
       res.send(500);
     } else {
-      res.send(200);
+      res.redirect('/');
     }
   })
 });
@@ -118,7 +118,7 @@ app.post('/:id/addRating', function(req, res) {
     if (err) {
       res.send(500);
     } else {
-      res.send(200);
+      res.redirect("/")
     }
   })
 });
