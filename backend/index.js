@@ -22,7 +22,7 @@ app.get('/getAllStandorte', function(req, res) {
 })
 
 app.get('/getAll', function(req, res) {
-	mysqlPool.query('SELECT id, name, standortlg, standortbg FROM Automat;',
+	mysqlPool.query('SELECT id as S_ID, name, standortlg, standortbg, (SELECT AVG(qualitaet) FROM Automat, Bewertung, Heissgetraenke WHERE Bewertung.heissgetreankid = Heissgetraenke.id AND Heissgetraenke.automatid = Automat.id AND Automat.id=S_ID) as quality FROM Automat',
 		function (error, results, fields) {
 			if (error) {
 				console.log(error);
@@ -34,6 +34,7 @@ app.get('/getAll', function(req, res) {
 					name: results[entry].name,
 					long: results[entry].standortlg,
 					lat: results[entry].standortbg,
+					quality: results[entry].quality,
 					
 				});
 			}
