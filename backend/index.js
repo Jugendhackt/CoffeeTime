@@ -7,6 +7,12 @@ const mysqlPool = require('./mysql.js');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.get("/", function(req, res) {
 	res.send("Hello, World!");
 })
@@ -53,7 +59,9 @@ app.post('/addAutomat', function(req, res) {
 		})
 });
 
-
+app.get("/timestamp", function(req, res){
+	res.send(JSON.stringify(Date.now()));
+})
 
 app.listen(8081, function() {
 	console.log("Example server listening...");
