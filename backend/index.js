@@ -10,10 +10,15 @@ app.get('/getAllStandorte', function(req, res) {
 })
 
 app.get('/getAll', function(req, res) {
-	console.log(req);
-	res.send("Alle Standorte...");
+		res.send("All....");
 })
 
 app.listen(8081, function() {
 	console.log("Example server listening...");
 })
+
+app.use(express.static('public'));
+
+app.get('/user/:id', function(req, res) {
+  res.send('user ' + req.params.id);
+});
