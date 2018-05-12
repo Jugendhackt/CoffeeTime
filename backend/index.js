@@ -16,6 +16,23 @@ app.use(function(req, res, next) {
 app.get("/", function(req, res) {
 	res.send("Hello, World!");
 })
+app.get('/:id/getAllBewertungen', function(req, res) {
+	mysqlPool.query('SELECT id, kommentar, qualitaet FROM Automat WHERE heissgetraenkid='+ mysqlPool.escape(req.params.id) +';',
+		function (error, results, fields) {
+			if (error) {
+				console.log(error);
+			}
+			var arr = [];
+			for (entry in results) {
+				arr.push({
+					id: results[entry].id,
+					kommentar: results[entry].kommentar,
+					qualitaet: results[entry].qualitaet,
+				});
+			}
+			res.send(JSON.stringify(arr));
+		});
+})
 
 app.get('/getAllStandorte', function(req, res) {
 	res.send("Alle Standorte...");
