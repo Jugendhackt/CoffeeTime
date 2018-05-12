@@ -138,7 +138,7 @@ app.post('/:id/addHeisseGetreanke', function(req, res) {
   var preis = mysqlPool.escape(req.body.price);
   var art = mysqlPool.escape(req.body.type);
 
-  var query = "INSERT INTO Heissgetraenke(name, preis, art,heissgetreankid) VALUES ("
+  var query = "INSERT INTO Heissgetraenke(name, preis, art,automatid) VALUES ("
   + name + ", " + preis + "," + art + "," + mysqlPool.escape(req.params.id) + ");"
   mysqlPool.query(query, function(err, results, fields) {
     if (err) {
