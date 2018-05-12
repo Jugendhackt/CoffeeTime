@@ -14,24 +14,7 @@ app.use(function(req, res, next) {
 });
 
 app.get("/", function(req, res) {
-	res.send("Hello, World!");
-})
-app.get('/:id/getAllBewertungen', function(req, res) {
-	mysqlPool.query('SELECT id, kommentar, qualitaet FROM Automat WHERE heissgetraenkid='+ mysqlPool.escape(req.params.id) +';',
-		function (error, results, fields) {
-			if (error) {
-				console.log(error);
-			}
-			var arr = [];
-			for (entry in results) {
-				arr.push({
-					id: results[entry].id,
-					kommentar: results[entry].kommentar,
-					qualitaet: results[entry].qualitaet,
-				});
-			}
-			res.send(JSON.stringify(arr));
-		});
+	res.send("Hello World!");
 })
 
 app.get('/getAllStandorte', function(req, res) {
@@ -52,30 +35,11 @@ app.get('/getAll', function(req, res) {
 					long: results[entry].standortlg,
 					lat: results[entry].standortbg,
 					quality: results[entry].quality,
-
 				});
 			}
 			res.send(JSON.stringify(arr));
 		});
 })
-
-app.get('/automat/:id', function(req, res) {
-  mysqlPool.query('SELECT name, preis, art FROM Heissgetraenke WHERE automatid = ' +  mysqlPool.escape(req.params.id),
-  function (error, results, fields) {
-    if (error) {
-      console.log(error);
-    }
-    var arr = [];
-    for (entry in results) {
-      arr.push({
-        name: results[entry].name,
-        preis: results[entry].preis,
-        art: results[entry].art,
-      });
-    }
-    res.send(JSON.stringify(arr));
-  })
-});
 
 app.post('/addAutomat', function(req, res) {
 	console.log(req);
@@ -94,6 +58,24 @@ app.post('/addAutomat', function(req, res) {
 			}
 		})
 });
+
+app.get('/:id/getAllBewertungen', function(req, res) {
+	mysqlPool.query('SELECT id, kommentar, qualitaet FROM Automat WHERE heissgetraenkid='+ mysqlPool.escape(req.params.id) +';',
+		function (error, results, fields) {
+			if (error) {
+				console.log(error);
+			}
+			var arr = [];
+			for (entry in results) {
+				arr.push({
+					id: results[entry].id,
+					kommentar: results[entry].kommentar,
+					qualitaet: results[entry].qualitaet,
+				});
+			}
+			res.send(JSON.stringify(arr));
+		});
+})
 
 app.get("/timestamp", function(req, res){
 	res.send(JSON.stringify(Date.now()));
