@@ -89,7 +89,34 @@ app.post('/:id/addRating', function(req, res) {
   var qualitaet = mysqlPool.escape(req.body.quality);
 
   var query = "INSERT INTO Bewertung(kommentar, qualitaet, heissgetreankid) VALUES ("
-  + kommentar + ", 0," + qualitaet + "," + mysqlPool.escape(req.params.id) + ");"
+  + kommentar + ", " + qualitaet + "," + mysqlPool.escape(req.params.id) + ");"
+  mysqlPool.query(query, function(err, results, fields) {
+    if (err) {
+      res.send(500);
+    } else {
+      res.send(200);
+    }
+  })
+});
+
+app.get('/:id/getHeisseGetreanke', function(req, res) {
+  mysqlPool.query('SELECT * FROM Heissgetraenke WHERE automatid = '+ mysqlPool.escape(req.params.id) +';',
+  function (error, results, fields) {
+    if (error) {
+      console.log(error);
+    }
+    res.send(JSON.stringify(results));
+  });
+})
+
+app.post('/:id/addHeisseGetreanke', function(req, res) {
+  console.log(req);
+  var name = mysqlPool.escape(req.body.name);
+  var preis = mysqlPool.escape(req.body.price);
+  var art = mysqlPool.escape(req.body.type);
+
+  var query = "INSERT INTO Heissgetraenke(name, preis, art,heissgetreankid) VALUES ("
+  + name + ", " + preis + "," + art + "," + mysqlPool.escape(req.params.id) + ");"
   mysqlPool.query(query, function(err, results, fields) {
     if (err) {
       res.send(500);
