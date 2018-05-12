@@ -43,7 +43,7 @@ app.get('/getAll', function(req, res) {
 })
 
 app.get('/automat/:id', function(req, res) {
-  mysqlPool.query('SELECT name, preis, art FROM Heissgetraenke WHERE automatid = ' +  req.params.id,
+  mysqlPool.query('SELECT name, preis, art FROM Heissgetraenke WHERE automatid = ' + req.params.id,
   function (error, results, fields) {
     if (error) {
       console.log(error);
@@ -67,13 +67,24 @@ app.post('/addAutomat', function(req, res) {
 	var lat = mysqlPool.escape(req.body.lat);
 	var oeffnungszeit = mysqlPool.escape(req.body.opens);
 
+	var gname = mysqlPool.escape(req.body.gName);
+	var gpreis = mysqlPool.escape(req.body.gPreis);
+	var gart = mysqlPool.escape(req.body.gArt);
+
 	var query = "INSERT INTO Automat(name, art, oeffnungszeit, standortlg, standortbg) VALUES ("
 		+ name + ", 0," + oeffnungszeit + "," + long + "," + lat + ");"
 		mysqlPool.query(query, function(err, results, fields) {
 			if (err) {
 				res.send(500);
 			} else {
-				res.send(200);
+				mysqlPool.query("INSERT INTO Heissgetraenke (name, preis, automatid, art) VALUES (" +
+					gname + "," + gpreis + "," + results.insertId + "," + gart + ");", function (err2, result2, fields2) {
+						if (err) {
+							res.send(500);
+						} else {
+							res.send(200);
+						}
+					})
 			}
 		})
 });
