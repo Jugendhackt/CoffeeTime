@@ -5,7 +5,16 @@ function addMarker(location){
   var marker = L.marker([location.long,location.lat]).addTo(mymap);
   markers.push(marker);
   marker.on('click', function (){
-    marker.bindPopup('<b>'+location.name+'</b><br>I am a popup</b><br><a href="https://www.google.de">more information</a>').openPopup();
+    var stars = '';
+    for(var i=1; i<=5;i++){
+      if(i<=location.quality){
+        stars +='<span class="fa fa-star checked"></span>'
+      }
+      else{
+        stars +='<span class="fa fa-star unchecked"></span>'
+      }
+    }
+    marker.bindPopup('<b>'+location.name+'</b><br>Bewertung: '+stars+'</b><br><a href="https://www.google.de">more information</a>').openPopup();
   })
 }
 
