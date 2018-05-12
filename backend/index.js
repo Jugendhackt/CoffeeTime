@@ -134,7 +134,6 @@ app.get('/:id/getHeisseGetreanke', function(req, res) {
 })
 
 app.post('/:id/addHeisseGetreanke', function(req, res) {
-  console.log(req);
   var name = mysqlPool.escape(req.body.name);
   var preis = mysqlPool.escape(req.body.price);
   var art = mysqlPool.escape(req.body.type);
@@ -143,6 +142,7 @@ app.post('/:id/addHeisseGetreanke', function(req, res) {
   + name + ", " + preis + "," + art + "," + mysqlPool.escape(req.params.id) + ");"
   mysqlPool.query(query, function(err, results, fields) {
     if (err) {
+      console.log(err);
       res.send(500);
     } else {
       res.send(200);
