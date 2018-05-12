@@ -85,18 +85,6 @@
                 </div>
             </div>
 
-			<div  class="form-group">
-                <!--  Die  Angabe  class="control-label col-sm-2"  ist  notwendig,  damit  das  Feld  richtig  ausgerichtet  wird  -->
-                <label  for="inputGetränk"  class="control-label col-sm-2">Art des Getränks</label>
-                <div  class="checkbox">
-                    <label>
-					<input  type="checkbox"> Kaffee
-					<input  type="checkbox"> Tee
-					<input  type="checkbox"> Kakao
-					<label>
-                </div>
-            </div>
-
 			<!--  Auswahlfeld  -->
             <div class="form-group">
                 <label for="inputGetränk">Art des Getränks</label>
@@ -112,7 +100,10 @@
                 <!--  Die  Angabe  class="control-label col-sm-2"  ist  notwendig,  damit  das  Feld  richtig  ausgerichtet  wird  -->
                 <label  for="inputQualität"  class="control-label col-sm-2">Qualität</label>
                 <div  class="slider">
-					<input id="slider" type="range" min="0" max="5" step="1.0" value="0">
+					<input id="slider" type="range" min="0" max="5" step="1.0" value="0" onchange="updateText(this.value)">
+					<output type="text" id="textInput" />
+					<!--  Mittels  class="help-block"  kann  ein  Hinweis  eingefügt  werden  -->
+                    <span  class="help-block">Sterne</span>
                 </div>
             </div>
 			
@@ -152,4 +143,9 @@
         </form>
     </div>
 </div>
+<script>
+function updateText(val) {
+	document.getElementById("textInput").value = val;
+}
+</script>
 </body>
