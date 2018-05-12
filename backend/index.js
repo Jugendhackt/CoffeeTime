@@ -13,10 +13,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get("/", function(req, res) {
-  res.send("Hello World!");
-})
-
 app.get('/getAllStandorte', function(req, res) {
   res.send("Alle Standorte...");
 })
@@ -111,7 +107,7 @@ app.listen(8081, function() {
   console.log("Example server listening...");
 })
 
-app.use(express.static('public'));
+app.use(express.static('../frontend'));
 
 app.get('/user/:id', function(req, res) {
   res.send('user ' + req.params.id);
