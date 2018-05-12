@@ -30,7 +30,7 @@ app.get('/getAll', function(req, res) {
 			var arr = [];
 			for (entry in results) {
 				arr.push({
-					id: results[entry].id,
+					id: results[entry].S_ID,
 					name: results[entry].name,
 					long: results[entry].standortlg,
 					lat: results[entry].standortbg,
