@@ -134,7 +134,7 @@ app.listen(8081, function() {
   console.log("Example server listening...");
 })
 
-app.use(express.static('../frontend'));
+app.use(express.static(__dirname + '/../frontend'));
 
 app.get('/user/:id', function(req, res) {
   res.send('user ' + req.params.id);
