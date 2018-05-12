@@ -43,7 +43,7 @@ app.get('/getAll', function(req, res) {
 })
 
 app.get('/automat/:id', function(req, res) {
-  mysqlPool.query('SELECT name, preis, art FROM Heissgetraenke WHERE automatid = ' +  req.params.id,
+  mysqlPool.query('SELECT name, preis, art FROM Heissgetraenke WHERE automatid = ' +  mysqlPool.escape(req.params.id),
   function (error, results, fields) {
     if (error) {
       console.log(error);
