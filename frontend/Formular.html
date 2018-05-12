@@ -22,9 +22,52 @@
     <link href="css/clean-blog.min.css" rel="stylesheet">
 
   </head>
-  
+
 <body>
-  
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <div class="dropdown show">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Menu
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="index.html">Start</a>
+            <a class="dropdown-item" href="karte.html">Karte</a>
+            <a class="dropdown-item" href="top10.html">Top10</a>
+            <a class="dropdown-item" href="Formular.html">Formular</a>
+          </div>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('img/coffee-1324126_1920.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>CoffeeTime</h1>
+            <span class="subheading">Find the best coffee <3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
   <div class="container">
     <div class="col-md-12">
         <!--  Um  ein  horizontales  Formular  zu  erhalten,  muss  die  Klasse  "form-horizontal"  im  form-Element  vergeben  werden  -->
@@ -40,31 +83,31 @@
                     <span  class="help-block">Hinweis:  Automat/Café</span>
                 </div>
             </div>
-			
+
 			<div  class="form-group">
                 <!--  Die  Angabe  class="control-label col-sm-2"  ist  notwendig,  damit  das  Feld  richtig  ausgerichtet  wird  -->
                 <label  for="inputGetränk"  class="control-label col-sm-2">Art des Getränks</label>
                 <div  class="checkbox">
-                    <label> 
+                    <label>
 					<input  type="checkbox"> Kaffee
 					<input  type="checkbox"> Tee
 					<input  type="checkbox"> Kakao
 					<label>
                 </div>
             </div>
-			
+
 			<!--  Auswahlfeld  -->
             <div class="form-group">
                 <label for="inputGetränk">Art des Getränks</label>
-				
+
                 <select id="inputGetränk" class="form-control">
                     <option>Kaffee</option>
                     <option>Tee</option>
                     <option>Kakao</option>
                 </select>
-				
+
             </div>
-			
+
 			<div  class="form-group">
                 <!--  Die  Angabe  class="control-label col-sm-2"  ist  notwendig,  damit  das  Feld  richtig  ausgerichtet  wird  -->
                 <label  for="inputQualität"  class="control-label col-sm-2">Qualität</label>
@@ -76,7 +119,7 @@
 					<input  type="checkbox"> *
                 </div>
             </div>
-			
+
             <div  class="form-group">
                 <label  for="inputPreis"  class="control-label col-sm-2">Preis</label>
                 <div  class="col-sm-10">
@@ -85,7 +128,7 @@
                     <span  class="help-block"> in €</span>
                 </div>
             </div>
-			
+
 			<div  class="form-group">
                 <label  for="inputMenge"  class="control-label col-sm-2">Menge</label>
                 <div  class="col-sm-10">
@@ -94,7 +137,7 @@
                     <span  class="help-block"> in ml</span>
                 </div>
             </div>
-			
+
 			<div  class="form-group">
                 <label  for="inputOffen"  class="control-label col-sm-2">Öffnungszeiten</label>
                 <div  class="col-sm-10">
@@ -103,14 +146,14 @@
                     <span  class="help-block">Hinweis: Uhrzeiten/Wochentage</span>
                 </div>
             </div>
-			
+
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <!--  Du  Zuweisung  class="btn  btn-primary  macht  aus  der  Schaltflaeche  einen  schoenen  blauen  Button  -->  
+                    <!--  Du  Zuweisung  class="btn  btn-primary  macht  aus  der  Schaltflaeche  einen  schoenen  blauen  Button  -->
                     <button  class="btn  btn-primary"  type="submit">anlegen</button>
                 </div>
             </div>
-        </form>	
+        </form>
     </div>
 </div>
 </body>
