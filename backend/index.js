@@ -87,6 +87,22 @@ app.get('/:id/getRating', function(req, res) {
   });
 })
 
+app.post('/:id/addRating', function(req, res) {
+  console.log(req);
+  var kommentar = mysqlPool.escape(req.body.comment);
+  var qualitaet = mysqlPool.escape(req.body.quality);
+
+  var query = "INSERT INTO Bewertung(kommentar, qualitaet, heissgetreankid) VALUES ("
+  + kommentar + ", 0," + qualitaet + "," + mysqlPool.escape(req.params.id) + ");"
+  mysqlPool.query(query, function(err, results, fields) {
+    if (err) {
+      res.send(500);
+    } else {
+      res.send(200);
+    }
+  })
+});
+
 app.get("/timestamp", function(req, res){
   res.send(JSON.stringify(Date.now()));
 })
