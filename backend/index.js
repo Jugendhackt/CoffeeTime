@@ -13,13 +13,33 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get("/", function(req, res) {
-  res.send("Hello World!");
-})
-
 app.get('/getAllStandorte', function(req, res) {
   res.send("Alle Standorte...");
 })
+
+app.get('/sortByRating', function (req, res){
+  mysqlPool.query( 'SELECT id as S_ID, name, standortlg, standortbg, (SELECT AVG(qualitaet) FROM Automat, Bewertung, Heissgetraenke WHERE Bewertung.heissgetreankid = Heissgetraenke.id AND Heissgetraenke.automatid = Automat.id AND Automat.id=S_ID) as quality FROM Automat ORDER BY quality DESC',
+    function (error, results, fields) {
+      console.log(error);
+
+    //start
+    var arr = [];
+    for (entry in results) {
+      arr.push({
+        name: results[entry].name,
+        long: results[entry].standortlg,
+        lat: results[entry].standortbg,
+        quality: results[entry].quality,
+
+      });
+    }
+
+    res.send(JSON.stringify(arr));
+    //ende
+
+})
+});
+
 
 app.get('/getAll', function(req, res) {
   mysqlPool.query('SELECT id as S_ID, name, standortlg, standortbg, (SELECT AVG(qualitaet) FROM Automat, Bewertung, Heissgetraenke WHERE Bewertung.heissgetreankid = Heissgetraenke.id AND Heissgetraenke.automatid = Automat.id AND Automat.id=S_ID) as quality FROM Automat',
@@ -54,7 +74,7 @@ app.post('/addAutomat', function(req, res) {
     if (err) {
       res.send(500);
     } else {
-      res.send(200);
+      res.redirect('/');
     }
   })
 });
@@ -98,12 +118,12 @@ app.post('/:id/addRating', function(req, res) {
     if (err) {
       res.send(500);
     } else {
-      res.send(200);
+      res.redirect("/")
     }
   })
 });
 
-app.get('/:id/getHeisseGetraenke', function(req, res) {
+app.get('/:id/getHeisseGetreanke', function(req, res) {
   mysqlPool.query('SELECT * FROM Heissgetraenke WHERE automatid = '+ mysqlPool.escape(req.params.id) +';',
   function (error, results, fields) {
     if (error) {
@@ -113,16 +133,16 @@ app.get('/:id/getHeisseGetraenke', function(req, res) {
   });
 })
 
-app.post('/:id/addHeisseGetraenke', function(req, res) {
-  console.log(req);
+app.post('/:id/addHeisseGetreanke', function(req, res) {
   var name = mysqlPool.escape(req.body.name);
   var preis = mysqlPool.escape(req.body.price);
   var art = mysqlPool.escape(req.body.type);
 
-  var query = "INSERT INTO Heissgetraenke(name, preis, art,heissgetreankid) VALUES ("
+  var query = "INSERT INTO Heissgetraenke(name, preis, art,automatid) VALUES ("
   + name + ", " + preis + "," + art + "," + mysqlPool.escape(req.params.id) + ");"
   mysqlPool.query(query, function(err, results, fields) {
     if (err) {
+      console.log(err);
       res.send(500);
     } else {
       res.send(200);
@@ -138,7 +158,7 @@ app.listen(8081, function() {
   console.log("Example server listening...");
 })
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/../frontend'));
 
 app.get('/user/:id', function(req, res) {
   res.send('user ' + req.params.id);
