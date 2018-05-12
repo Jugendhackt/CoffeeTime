@@ -17,6 +17,30 @@ app.get('/getAllStandorte', function(req, res) {
   res.send("Alle Standorte...");
 })
 
+app.get('/sortByRating', function (req, res){
+  mysqlPool.query( 'SELECT id as S_ID, name, standortlg, standortbg, (SELECT AVG(qualitaet) FROM Automat, Bewertung, Heissgetraenke WHERE Bewertung.heissgetreankid = Heissgetraenke.id AND Heissgetraenke.automatid = Automat.id AND Automat.id=S_ID) as quality FROM Automat ORDER BY quality DESC',
+    function (error, results, fields) {
+      console.log(error);
+
+    //start
+    var arr = [];
+    for (entry in results) {
+      arr.push({
+        name: results[entry].name,
+        long: results[entry].standortlg,
+        lat: results[entry].standortbg,
+        quality: results[entry].quality,
+
+      });
+    }
+
+    res.send(JSON.stringify(arr));
+    //ende
+
+})
+});
+
+
 app.get('/getAll', function(req, res) {
   mysqlPool.query('SELECT id as S_ID, name, standortlg, standortbg, (SELECT AVG(qualitaet) FROM Automat, Bewertung, Heissgetraenke WHERE Bewertung.heissgetreankid = Heissgetraenke.id AND Heissgetraenke.automatid = Automat.id AND Automat.id=S_ID) as quality FROM Automat',
   function (error, results, fields) {
