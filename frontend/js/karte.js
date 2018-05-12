@@ -14,13 +14,28 @@ function addMarker(location){
         stars +='<span class="fa fa-star unchecked"></span>'
       }
     }
-    marker.bindPopup('<b>'+location.name+'</b><br>Bewertung: '+stars+'</b><br><a href="https://www.google.de">more information</a>').openPopup();
+    marker.bindPopup('<b>'+location.name+'</b><br>Bewertung: '+stars+'</b><br><span data-id="'+location.id+'" class="more">more information</span>').openPopup();
   })
 }
 
-function openModal(x){
-  
+function addContent(trinken){
+  var neu = "neuer <b>fetter<\/b> Text";
+   document.getElementById('content').innerHTML = neu;
 }
+
+
+
+$("body").on("click",".more",function(){
+  fetch('http://10.23.42.102:8081/'+$(this).attr("data-id")+'/getHeisseGetreanke')
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(myJson){
+      console.log(myJson);
+      myJson.forEach(addContent)
+    });
+})
+
 
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
