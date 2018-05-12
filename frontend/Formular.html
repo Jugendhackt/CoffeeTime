@@ -106,21 +106,16 @@
                     <option>Tee</option>
                     <option>Kakao</option>
                 </select>
-
             </div>
-
+			
 			<div  class="form-group">
                 <!--  Die  Angabe  class="control-label col-sm-2"  ist  notwendig,  damit  das  Feld  richtig  ausgerichtet  wird  -->
                 <label  for="inputQualität"  class="control-label col-sm-2">Qualität</label>
-                <div  class="checkbox">
-					<input  type="checkbox"> *
-					<input  type="checkbox"> *
-					<input  type="checkbox"> *
-					<input  type="checkbox"> *
-					<input  type="checkbox"> *
+                <div  class="slider">
+					<input id="slider" type="range" min="0" max="5" step="1.0" value="0">
                 </div>
             </div>
-
+			
             <div  class="form-group">
                 <label  for="inputPreis"  class="control-label col-sm-2">Preis</label>
                 <div  class="col-sm-10">
