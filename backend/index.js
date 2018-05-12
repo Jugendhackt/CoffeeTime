@@ -41,25 +41,6 @@ app.get('/getAll', function(req, res) {
 		});
 })
 
-
-app.get('/automat/:id', function(req, res) {
-  mysqlPool.query('SELECT name, preis, art FROM Heissgetraenke WHERE automatid = ' + req.params.id,
-  function (error, results, fields) {
-    if (error) {
-      console.log(error);
-    }
-    var arr = [];
-    for (entry in results) {
-      arr.push({
-        name: results[entry].name,
-        preis: results[entry].preis,
-        art: results[entry].art,
-      });
-    }
-    res.send(JSON.stringify(arr));
-  })
-});
-
 app.post('/addAutomat', function(req, res) {
 	console.log(req);
 	var name = mysqlPool.escape(req.body.name);
@@ -67,30 +48,19 @@ app.post('/addAutomat', function(req, res) {
 	var lat = mysqlPool.escape(req.body.lat);
 	var oeffnungszeit = mysqlPool.escape(req.body.opens);
 
-	var gname = mysqlPool.escape(req.body.gName);
-	var gpreis = mysqlPool.escape(req.body.gPreis);
-	var gart = mysqlPool.escape(req.body.gArt);
-
 	var query = "INSERT INTO Automat(name, art, oeffnungszeit, standortlg, standortbg) VALUES ("
 		+ name + ", 0," + oeffnungszeit + "," + long + "," + lat + ");"
 		mysqlPool.query(query, function(err, results, fields) {
 			if (err) {
 				res.send(500);
 			} else {
-				mysqlPool.query("INSERT INTO Heissgetraenke (name, preis, automatid, art) VALUES (" +
-					gname + "," + gpreis + "," + results.insertId + "," + gart + ");", function (err2, result2, fields2) {
-						if (err) {
-							res.send(500);
-						} else {
-							res.send(200);
-						}
-					})
+				res.send(200);
 			}
 		})
 });
 
 app.get('/:id/getAllBewertungen', function(req, res) {
-	mysqlPool.query('SELECT id, kommentar, qualitaet FROM Bewertung WHERE heissgetraenkid='+ mysqlPool.escape(req.params.id) +';',
+	mysqlPool.query('SELECT id, kommentar, qualitaet FROM Bewertung WHERE heissgetreankid='+ mysqlPool.escape(req.params.id) +';',
 		function (error, results, fields) {
 			if (error) {
 				console.log(error);
