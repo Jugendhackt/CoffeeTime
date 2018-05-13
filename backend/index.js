@@ -58,7 +58,7 @@ app.get('/getAll', function(req, res) {
 		        	quality: automat.quality,
 		      	};
 		      	var heissgetraenke= [];
-		      	mysqlPool.query("SELECT id, name, preis, art FROM Heissgetraenke WHERE automatid = " + automat.S_ID + ";", 
+		      	mysqlPool.query("SELECT id AS S_ID, name, preis, art, (SELECT AVG(qualitaet) FROM Bewertung WHERE Bewertung.heissgetreankid = S_ID) as quality FROM Heissgetraenke WHERE automatid = " + automat.S_ID +";", 
 		      	function (err2, results2, fields2) {
 		      		if (err2) {
 		      			console.log(err2);
@@ -66,10 +66,11 @@ app.get('/getAll', function(req, res) {
 		      		if (!err2) {
 		      			for (entry2 in results2) {
 			      			heissgetraenke.push({
-			      				id : results2[entry2].id,
+			      				id : results2[entry2].S_ID,
 			      				name: results2[entry2].name,
 			      				preis: results2[entry2].preis,
 			      				art: parseArt(results2[entry2].art),
+			      				quality: results2[entry2].quality,
 			      			})
 		      			}
 		      			automatobj.heissgetraenke = heissgetraenke;
@@ -115,7 +116,7 @@ app.post('/addAutomat', function(req, res) {
 							if (err) {
 								res.send(500);
 							} else {
-								res.redirect('/');
+								res.redirect('/ok.html');
 							}
 					});
 				}
@@ -165,7 +166,7 @@ app.post('/:id/addRating', function(req, res) {
     if (err) {
       res.send(500);
     } else {
-      res.redirect("/")
+      res.redirect("/ok.html")
     }
   })
 });
