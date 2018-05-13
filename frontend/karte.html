@@ -106,26 +106,39 @@
       </div>
     </div>
 
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <div id="content"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+    <div class="modal fade" id="bewertungModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="bewertungTitle">Bewertung</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="formularId" action='' method="post">
+              <div  class="form-group">
+                <!--  Die  Angabe  class="control-label col-sm-2"  ist  notwendig,  damit  das  Feld  richtig  ausgerichtet  wird  -->
+                  <label  for="inputQualität"  class="control-label col-sm-2">Qualität</label>
+                    <div  class="slider">
+      					           <input id="slider" type="range" min="0" max="5" step="1.0" value="0" name="quality" onchange="updateText(this.value)">
+      					                <output type="text" id="textInput" />
+      					<!--  Mittels  class="help-block"  kann  ein  Hinweis  eingefügt  werden  -->
+                          <span  class="help-block">Sterne</span>
+                    </div>
+              </div>
+              <button class='btn-karte-popup'>Speichern</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+
+    <script>
+    function updateText(val) {
+    	document.getElementById("textInput").value = val;
+    }
+    </script>
 
     <!-- Footer -->
     <footer>

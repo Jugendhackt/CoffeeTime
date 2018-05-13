@@ -31,7 +31,8 @@ function addMarker(location){
             stars +='<span class="fa fa-star unchecked"></span>'
           }
         }
-        info +='<div><div><b>Name: '+drink.name+'</b></div><span>Preis: </span>'+drink.preis+'<span> Euro</span> <div><span>Art des Getränks: </span>'+drink.art+'</div><div>Bewertung: '+stars+'</div><hr></div>'
+        info +='<div><div><b>Name: '+drink.name+'</b></div><span>Preis: </span>'+drink.preis+'<span> Euro</span> <div><span>Art des Getränks: </span>'+drink.art+'</div><div>Bewertung: '+stars+'</div></div>'
+        info +='<button type="button" class="btn-karte-popup" data-id="'+drink.id+'" data-toggle="modal" data-target="#bewertungModal">Bewerten</button><hr>'
     }
     document.getElementById('content').innerHTML = info;
     document.getElementById('contentTitle').innerHTML = location.name;
@@ -73,3 +74,12 @@ fetch('http://10.23.42.102:8081/getAll')
     console.log(myJson);
     myJson.forEach(addMarker)
   });
+
+
+$('#bewertungModal').on('show.bs.modal', function (e) {
+  var button=$(e.ralatedTarget);//findet button nicht
+  console.log(button);
+  var form =$("#formularId");
+  form.attr("action", "http://10.23.42.102/"+button.attr("data-id")+"/addRating")
+   e.relatedTarget
+ })
