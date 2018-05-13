@@ -14,13 +14,48 @@ function addMarker(location){
         stars +='<span class="fa fa-star unchecked"></span>'
       }
     }
-    marker.bindPopup('<b>'+location.name+'</b><br>Bewertung: '+stars+'</b><br><a href="https://www.google.de">more information</a>').openPopup();
+
+    marker.bindPopup('<b>'+location.name+'</b><br>Bewertung: '+stars+'</b><br><button type="button" class="btn btn-primary" data-id="'+location.id+'"data-toggle="modal" data-target="#exampleModal">more info</button>').openPopup();
+
+    location.drinks=[{name:"kurt", quality:2},{name:"hans", quality: 5}]
+    var info = '';
+    for(var i=0; i<location.drinks.length; i++){
+        var drink= location.drinks[i];
+
+        var stars = '';
+        for(var j=1; j<=5;j++){
+          if(j<=drink.quality){
+            stars +='<span class="fa fa-star checked"></span>'
+          }
+          else{
+            stars +='<span class="fa fa-star unchecked"></span>'
+          }
+        }
+        info +='<div><div><b>Name: '+drink.name+'</b></div><div>Bewertung: '+stars+'</div><hr></div>'
+    }
+    document.getElementById('content').innerHTML = info;
+    document.getElementById('contentTitle').innerHTML = location.name;
   })
 }
 
-function openModal(x){
-  
+function addContent(trinken){
+  var neu = "neuer <b>fetter<\/b> Text";
+   document.getElementById('content').innerHTML = neu;
 }
+
+
+
+/*$("body").on("click",".more",function(){
+  fetch('http://10.23.42.102:8081/'+$(this).attr("data-id")+'/getHeisseGetreanke')
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(myJson){
+      console.log(myJson);
+      myJson.forEach(addContent)
+    });
+})*/
+
 
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
