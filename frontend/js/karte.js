@@ -4,36 +4,39 @@ var markers=[];
 function addMarker(location){
   var marker = L.marker([location.long,location.lat]).addTo(mymap);
   markers.push(marker);
-  marker.on('click', function (){
-    var stars = '';
-    for(var i=1; i<=5;i++){
-      if(i<=location.quality){
-        stars +='<span class="fa fa-star checked"></span>'
-      }
-      else{
-        stars +='<span class="fa fa-star unchecked"></span>'
-      }
+
+  var stars = '';
+  for(var i=1; i<=5;i++){
+    if(i<=location.quality){
+      stars +='<span class="fa fa-star checked"></span>'
     }
+    else{
+      stars +='<span class="fa fa-star unchecked"></span>'
+    }
+  }
 
-    marker.bindPopup('<b>'+location.name+'</b><br>Bewertung: '+stars+'</b><br><button type="button" class="btn-karte-popup" data-id="'+location.id+'"data-toggle="modal" data-target="#exampleModal">more info</button>').openPopup();
+  marker.bindPopup('<b>'+location.name+'</b><br>Bewertung: '+stars+'</b><br><button type="button" class="btn-karte-popup" data-id="'+location.id+'"data-toggle="modal" data-target="#exampleModal">more info</button>').openPopup();
 
-    location.drinks=location.heissgetraenke;
-    var info = '';
-    for(var i=0; i<location.drinks.length; i++){
-        var drink= location.drinks[i];
+  location.drinks=location.heissgetraenke;
+  var info = '';
+  for(var i=0; i<location.drinks.length; i++){
+      var drink= location.drinks[i];
 
-        var stars = '';
-        for(var j=1; j<=5;j++){
-          if(j<=drink.quality){
-            stars +='<span class="fa fa-star checked"></span>'
-          }
-          else{
-            stars +='<span class="fa fa-star unchecked"></span>'
-          }
+      var stars = '';
+      for(var j=1; j<=5;j++){
+        if(j<=drink.quality){
+          stars +='<span class="fa fa-star checked"></span>'
         }
-        info +='<div><div><b>Name: '+drink.name+'</b></div><span>Preis: </span>'+drink.preis+'<span> Euro</span> <div><span>Art des Getränks: </span>'+drink.art+'</div><div>Bewertung: '+stars+'</div></div>'
-        info +='<button type="button" class="btn-karte-popup" data-id="'+drink.id+'" data-toggle="modal" data-target="#bewertungModal">Bewerten</button><hr>'
-    }
+        else{
+          stars +='<span class="fa fa-star unchecked"></span>'
+        }
+      }
+      info +='<div><div><b>Name: '+drink.name+'</b></div><span>Preis: </span>'+drink.preis+'<span> Euro</span> <div><span>Art des Getränks: </span>'+drink.art+'</div><div>Bewertung: '+stars+'</div></div>'
+      info +='<button type="button" class="btn-karte-popup" data-id="'+drink.id+'" data-toggle="modal" data-target="#bewertungModal">Bewerten</button><hr>'
+  }
+  
+  marker.on('click', function (e){
+    marker.openPopup();
     document.getElementById('content').innerHTML = info;
     document.getElementById('contentTitle').innerHTML = location.name;
   })
