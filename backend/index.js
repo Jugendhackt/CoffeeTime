@@ -58,7 +58,7 @@ app.get('/getAll', function(req, res) {
 		        	quality: automat.quality,
 		      	};
 		      	var heissgetraenke= [];
-		      	mysqlPool.query("SELECT id, name, preis FROM Heissgetraenke WHERE automatid = " + automat.S_ID + ";", 
+		      	mysqlPool.query("SELECT id, name, preis, art FROM Heissgetraenke WHERE automatid = " + automat.S_ID + ";", 
 		      	function (err2, results2, fields2) {
 		      		if (err2) {
 		      			console.log(err2);
@@ -69,6 +69,7 @@ app.get('/getAll', function(req, res) {
 			      				id : results2[entry2].id,
 			      				name: results2[entry2].name,
 			      				preis: results2[entry2].preis,
+			      				art: parseArt(results2[entry2].art),
 			      			})
 		      			}
 		      			automatobj.heissgetraenke = heissgetraenke;
@@ -209,3 +210,15 @@ app.use(express.static(__dirname + '/../frontend'));
 app.get('/user/:id', function(req, res) {
   res.send('user ' + req.params.id);
 });
+
+function parseArt(art) {
+	if (art == 0) {
+		return "Kaffee";
+	} else if (art == 1) {
+		return "Kakao";
+	} else if (art == 2) {
+		return "Tee";
+	} else {
+		return "UKG";
+	}
+}
