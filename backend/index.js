@@ -72,6 +72,9 @@ app.post('/addAutomat', function(req, res) {
   var gpreis = mysqlPool.escape(req.body.gPreis);
   var gart = mysqlPool.escape(req.body.gArt);
 
+  var quality = mysqlPool.escape(req.body.quality);
+  var comment = mysqlPool.escape(req.body.comment);
+
   var query = "INSERT INTO Automat(name, art, oeffnungszeit, standortlg, standortbg) VALUES ("
   + name + ", 0," + oeffnungszeit + "," + long + "," + lat + ");"
   mysqlPool.query(query, function(err, results, fields) {
@@ -84,7 +87,14 @@ app.post('/addAutomat', function(req, res) {
 				if (err) {
 					res.send(500);
 				} else {
-					res.redirect('/');
+					mysqlPool.query("INSERT INTO Bewertung (kommentar, qualitaet, heissgetreankid) VALUES (" + 	comment + "," + quality + "," + result2.insertId + ");", 
+						function (err3, result3, fields3) {
+							if (err) {
+								res.send(500);
+							} else {
+								res.redirect('/');
+							}
+					});
 				}
 		})
 
