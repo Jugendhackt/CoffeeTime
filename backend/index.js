@@ -42,24 +42,46 @@ app.get('/sortByRating', function (req, res){
 
 
 app.get('/getAll', function(req, res) {
-  mysqlPool.query('SELECT id as S_ID, name, standortlg, standortbg, (SELECT AVG(qualitaet) FROM Automat, Bewertung, Heissgetraenke WHERE Bewertung.heissgetreankid = Heissgetraenke.id AND Heissgetraenke.automatid = Automat.id AND Automat.id=S_ID) as quality FROM Automat',
-  function (error, results, fields) {
-    if (error) {
-      console.log(error);
-    }
-    var arr = [];
-    for (entry in results) {
-      arr.push({
-        id: results[entry].S_ID,
-        name: results[entry].name,
-        long: results[entry].standortlg,
-        lat: results[entry].standortbg,
-        quality: results[entry].quality,
-      });
-    }
-    res.send(JSON.stringify(arr));
+	mysqlPool.query('SELECT id as S_ID, name, standortlg, standortbg, (SELECT AVG(qualitaet) FROM Automat, Bewertung, Heissgetraenke WHERE Bewertung.heissgetreankid = Heissgetraenke.id AND Heissgetraenke.automatid = Automat.id AND Automat.id=S_ID) as quality FROM Automat',
+  	function (error, results, fields) {
+	    if (error) {
+	      console.log(error);
+	    }
+	    var arr = [];
+	    Promise.all(results.map(function(automat) {
+	    	return new Promise(function (resolve, reject) {
+		      	var automatobj = {
+		      		id: automat.S_ID,
+		        	name: automat.name,
+		        	long: automat.standortlg,
+		        	lat: automat.standortbg,
+		        	quality: automat.quality,
+		      	};
+		      	var heissgetraenke= [];
+		      	mysqlPool.query("SELECT id, name, preis FROM Heissgetraenke WHERE automatid = " + automat.S_ID + ";", 
+		      	function (err2, results2, fields2) {
+		      		if (err2) {
+		      			console.log(err2);
+		      		}
+		      		if (!err2) {
+		      			for (entry2 in results2) {
+			      			heissgetraenke.push({
+			      				id : results2[entry2].id,
+			      				name: results2[entry2].name,
+			      				preis: results2[entry2].preis,
+			      			})
+		      			}
+		      			automatobj.heissgetraenke = heissgetraenke;
+		      			resolve(automatobj);
+		      		}
+		      	})
+	      })
+	    })).then(function(array) {
+	      	res.send(JSON.stringify(array));
+	      })
   });
-})
+});
+
 
 app.post('/addAutomat', function(req, res) {
   var name = mysqlPool.escape(req.body.name);
