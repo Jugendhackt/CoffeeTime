@@ -6,3 +6,8 @@
 .unchecked{
     color: lightgray;
 }
+
+.btn-karte-popup{
+  height: 15px;
+  width: 30px;
+}
