@@ -69,7 +69,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1IjoiZWxpc2FiZXRoc2NoaWVsZSIsImEiOiJjamdpMnFpcXowaWJwMnFwams4aWk5YXl3In0.IuvGOgBuRE6_BMIkhE7Okg'
 }).addTo(mymap);
 
-fetch('http://10.23.42.102:8081/getAll')
+fetch(CONFIG.server + '/getAll')
   .then(function(response){
     return response.json();
   })
@@ -83,6 +83,6 @@ $('#bewertungModal').on('show.bs.modal', function (e) {
   var button=$(e.ralatedTarget);//findet button nicht
   console.log(button);
   var form =$("#formularId");
-  form.attr("action", "http://10.23.42.102/"+button.attr("data-id")+"/addRating")
+  form.attr("action", CONFIG.server + "/" + button.attr("data-id")+"/addRating")
    e.relatedTarget
  })

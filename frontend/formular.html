@@ -72,7 +72,8 @@
   <div class="container">
     <div class="col-md-12">
         <!--  Um  ein  horizontales  Formular  zu  erhalten,  muss  die  Klasse  "form-horizontal"  im  form-Element  vergeben  werden  -->
-        <form  class="form-horizontal" action="http://10.23.42.102:8081/addAutomat" method="Post">
+        <!--  Action-URL wird via JavaScript eingefügt -->
+        <form  class="form-horizontal" id="form" method="Post">
             <!--  Jedes  Eingabefeld  muss  in  einem  <div  class="form-group">  liegen  -->
             <div  class="form-group">
                 <!--  Die  Angabe  class="control-label col-sm-2"  ist  notwendig,  damit  das  Feld  richtig  ausgerichtet  wird  -->
@@ -217,4 +218,12 @@ function updateText(val) {
 <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/config.js"></script>
+    
+
+    <script>
+      // Einfügen der Action-URL des Formulars.
+      document.getElementById('form').action = CONFIG.server + "/addAutomat";
+    </script>
 </body>

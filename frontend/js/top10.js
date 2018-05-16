@@ -1,4 +1,4 @@
-fetch('http://10.23.42.102:8081/sortByRating')
+fetch(CONFIG.server + '/sortByRating')
 .then(function(response){
   return response.json();
 })
