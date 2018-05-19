@@ -4,7 +4,7 @@
   "description": "The backend for the CoffeeTime service",
   "main": "index.js",
   "scripts": {
-    "test": "test.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
