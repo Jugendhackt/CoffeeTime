@@ -1,0 +1,19 @@
+#mapid { height: 570px; }
+
+.checked {
+    color: orange;
+}
+.unchecked{
+    color: lightgray;
+}
+
+.btn-karte-popup{
+  background-color: #7a7b7c; /* Green */
+  border: none;
+  color: white;
+  padding: 4px 28px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
